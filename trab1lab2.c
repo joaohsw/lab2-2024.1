@@ -48,7 +48,7 @@ float calculo_media (Pessoa dados[TAM]){
     int i;
     float total, media;
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         total += dados[i].peso;
     }
 
@@ -64,13 +64,13 @@ void relatorio1(Pessoa dados[TAM]){
 
     int i;
 
-    for(i = 1; i <= TAM; i++){
-        printf("\nCodigo pessoa %d: %d\n", i, dados[i].codigo);
-        printf("\nNome pessoa %d: %s\n", i, dados[i].nome);
-        printf("\nPeso pessoa %d: %f\n", i, dados[i].peso);
-        printf("\nAltura pessoa %d: %d\n", i, dados[i].altura);
-        printf("\nIMC pessoa %d: %f\n", i, dados[i].IMC);
-        printf("\nFaixa pessoa %d: %s\n", i, dados[i].faixa);
+    for(i = 0; i < TAM; i++){
+        printf("\nCodigo pessoa %d: %d\n", i + 1, dados[i].codigo);
+        printf("\nNome pessoa %d: %s\n", i + 1, dados[i].nome);
+        printf("\nPeso pessoa %d: %.2f\n", i + 1, dados[i].peso);
+        printf("\nAltura pessoa %d: %d\n", i + 1, dados[i].altura);
+        printf("\nIMC pessoa %d: %.2f\n", i + 1, dados[i].IMC);
+        printf("\nFaixa pessoa %d: %s\n", i + 1, dados[i].faixa);
 
     }
 }
@@ -81,7 +81,7 @@ void relatorio2(Pessoa dados[TAM]){
 
     printf("\n> Relatorio 2, pessoas classificadas com sobrepeso: ");
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if (strcmp(dados[i].faixa, "Sobrepeso") == 0) {
             printf("%s ", dados[i].nome);
             sobrepeso++;
@@ -100,7 +100,7 @@ void relatorio3(Pessoa dados[TAM]){
 
     printf("\n> Relatorio 3, pessoas classificadas com obesidade: ");
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if (strcmp(dados[i].faixa, "Obesidade") == 0) {
             printf("%s ", dados[i].nome);
             obesidade++;
@@ -116,7 +116,7 @@ void relatorio3(Pessoa dados[TAM]){
 void relatorio4(Pessoa dados[TAM], float media){
 
     printf("\n> Relatorio 4, media de peso: ");
-    printf("%f", media);
+    printf("%.2f", media);
     
 }
 
@@ -126,7 +126,7 @@ void relatorio5(Pessoa dados[TAM], float media){
 
     printf("\n> Relatorio 5, pessoas acima da media de peso: ");
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if(dados[i].peso > media){
             printf("%s ", dados[i].nome);
             acima++;
@@ -145,7 +145,7 @@ void relatorio6(Pessoa dados[TAM]){
 
     int i, fora = 0; 
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if(strcmp(dados[i].faixa, "Normal") != 0){
             printf("%s ", dados[i].nome);
             fora++;
@@ -163,7 +163,7 @@ void relatorio7(Pessoa dados[TAM], float media){
 
     int i, normalm = 0;
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if(strcmp(dados[i].faixa, "Normal") == 0 && dados[i].peso < media){
             printf("%s ", dados[i].nome);
             normalm++;
@@ -183,7 +183,7 @@ void relatorio8(Pessoa dados[TAM]){
     int i;
     float maior = 0;
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if(maior == 0){
             maior = dados[i].IMC;
         } else if(dados[i].IMC > maior){
@@ -191,7 +191,7 @@ void relatorio8(Pessoa dados[TAM]){
         } 
     }
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if(dados[i].IMC == maior){
             printf("%s ", dados[i].nome);
         }
@@ -206,7 +206,7 @@ void relatorio9(Pessoa dados[TAM]){
     int i;
     float menor = 1000;
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if(menor == 1000){
             menor = dados[i].IMC;
         } else if(dados[i].IMC < menor){
@@ -214,7 +214,7 @@ void relatorio9(Pessoa dados[TAM]){
         } 
     }
 
-    for(i = 1; i <= TAM; i++){
+    for(i = 0; i < TAM; i++){
         if(dados[i].IMC == menor){
             printf("%s ", dados[i].nome);
         }
@@ -224,13 +224,13 @@ void relatorio9(Pessoa dados[TAM]){
 
 int main() {
 
-    int vez = 1;
+    int vez = 0;
     float media;
 
     Pessoa dados[TAM];
 
-    while(vez <= TAM){
-        printf("\nLeitura de dados pessoa numero %d: \n", vez);
+    while(vez < TAM){
+        printf("\nLeitura de dados pessoa numero %d: \n", vez + 1);
         dados[vez] = leitura(dados[vez]);
         vez++;
     }
@@ -239,21 +239,21 @@ int main() {
 
     printf("\n- Fim da leitura - \n> Exibindo relatorios:\n");
     relatorio1(dados);
-    sleep(7);
+    sleep(5);
     relatorio2(dados);
-    sleep(7);
+    sleep(5);
     relatorio3(dados);
-    sleep(7);
+    sleep(5);
     relatorio4(dados, media);
-    sleep(7);
+    sleep(5);
     relatorio5(dados, media);
-    sleep(7);
+    sleep(5);
     relatorio6(dados);
-    sleep(7);
+    sleep(5);
     relatorio7(dados, media);
-    sleep(7);
+    sleep(5);
     relatorio8(dados);
-    sleep(7);
+    sleep(5);
     relatorio9(dados);
 
 }
