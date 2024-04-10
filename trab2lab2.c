@@ -145,6 +145,81 @@ void relatorio1(Municipio* municipios, int num_mun, int n) {
 
 }
 
+void relatorio2(Municipio* municipios, int num_mun, int n) {
+
+    double menor_mortalidade = -1;
+    char nomemenor[100]; 
+
+    for (int k = 0; k < num_mun; k++) {
+        int total_obitos = 0;
+        
+        for (int i = 0; i < n; i++) {
+            total_obitos += municipios[k].dados[i][1]; 
+        }
+
+        double taxa_mortalidade = (double)(total_obitos * 100) / municipios[k].populacao;
+        taxa_mortalidade *= 1000;
+
+
+        if(menor_mortalidade == -1){
+            menor_mortalidade = taxa_mortalidade;
+            strcpy(nomemenor, municipios[k].nome);
+        } else if (menor_mortalidade != -1 && taxa_mortalidade < menor_mortalidade){
+            menor_mortalidade = taxa_mortalidade;
+            strcpy(nomemenor, municipios[k].nome);
+
+        }        
+    }
+
+    printf("\nMenor taxa de mortalidade/100k habitantes: %s com %.2lf", nomemenor, menor_mortalidade);
+
+}
+
+void relatorio3(Municipio* municipios, int num_mun, int n) {
+
+    int total_confirmados = 0;
+
+    for (int k = 0; k < num_mun; k++) {
+        for (int i = 0; i < n; i++) {
+            total_confirmados += municipios[k].dados[i][0];
+        }
+    }
+
+    printf("\nTotal de casos confirmados: %d", total_confirmados);
+}
+
+void relatorio4(Municipio* municipios, int num_mun, int n) {
+
+    int total_obitos = 0;
+
+    for (int k = 0; k < num_mun; k++) {
+        for (int i = 0; i < n; i++) {
+            total_obitos += municipios[k].dados[i][1];
+        }
+    }
+
+    printf("\nTotal de obitos: %d", total_obitos);
+}
+
+void relatorio5(Municipio* municipios, int num_mun, int n) {
+
+    int municipios_sem_obitos = 0;
+
+    for (int k = 0; k < num_mun; k++) {
+        int obitos_registrados = 0;
+        
+        for (int i = 0; i < n; i++) {
+            obitos_registrados += municipios[k].dados[i][1]; 
+        }
+
+        if (obitos_registrados == 0) {
+            municipios_sem_obitos++;
+        }
+    }
+
+    printf("\nQuantidade de municipios sem novos obitos: %d", municipios_sem_obitos);
+}
+
 
 int main(){
 
@@ -184,17 +259,21 @@ int main(){
                 relatorio1(municipios, num_mun, n);
                 break;
             case 2: 
+                relatorio2(municipios, num_mun, n);
                 break;
             case 3:
+                relatorio3(municipios, num_mun, n);
                 break;
             case 4:
+                relatorio4(municipios, num_mun, n);
                 break;
             case 5: 
+                relatorio5(municipios, num_mun, n);
                 break;
             default:
-                exit(1);
-        }
-        
+                free(municipios);
+                exit(1);       
+        } 
     }
 
 }
