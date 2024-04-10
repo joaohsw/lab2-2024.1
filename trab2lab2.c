@@ -70,13 +70,19 @@ void populacao_municipios(Municipio* municipios, int num_mun) {
     }
 }
 
-void matriz_municipios(Municipio* municipios, int num_mun) {
-
-    int n, m = 3;
+int quant_dias(int n){
 
     printf("Informe quantos dias serao analisados: ");
     scanf("%d", &n);
     while (getchar() != '\n');
+
+    return n;
+
+}
+
+void matriz_municipios(Municipio* municipios, int num_mun, int n) {
+
+    int m = 3;
 
     for (int k = 0; k < num_mun; k++) {
         municipios[k].dados = (int **)malloc(n * sizeof(int *));
@@ -97,8 +103,8 @@ void matriz_municipios(Municipio* municipios, int num_mun) {
     for (int k = 0; k < num_mun; k++) {
         printf("Preenchendo dados para o municipio %s:\n", municipios[k].nome);
         for (int i = 0; i < n; i++) {
+
             printf("Informe os dados para o dia %d:\n", i + 1);
-            
             printf("Casos confirmados: ");
             scanf("%d", &(municipios[k].dados[i][0]));  
             while (getchar() != '\n');
@@ -110,7 +116,34 @@ void matriz_municipios(Municipio* municipios, int num_mun) {
     }
 }
 
+void relatorio1(Municipio* municipios, int num_mun, int n) {
 
+    double maior_incidencia = 0;
+    char nomemaior[100]; 
+
+    for (int k = 0; k < num_mun; k++) {
+        int total_confirmados = 0;
+        
+        for (int i = 0; i < n; i++) {
+            total_confirmados += municipios[k].dados[i][0]; 
+        }
+
+        double incidencia = (double)(total_confirmados * 100) / municipios[k].populacao;
+        incidencia *= 1000;
+
+        if(maior_incidencia == 0){
+            maior_incidencia = incidencia;
+            strcpy(nomemaior, municipios[k].nome);
+        } else if (maior_incidencia != 0 && incidencia > maior_incidencia){
+            maior_incidencia = incidencia;
+            strcpy(nomemaior, municipios[k].nome);
+
+        }        
+    }
+
+    printf("\nMaior incidencia/100k habitantes: %s com %2.lf", nomemaior, maior_incidencia);
+
+}
 
 
 int main(){
@@ -129,8 +162,39 @@ int main(){
 
     nome_municipios(municipios, num_mun);
     populacao_municipios(municipios, num_mun);
-    matriz_municipios(municipios, num_mun);
+    int n; 
+    n = quant_dias(n);
+    matriz_municipios(municipios, num_mun, n);
 
+    while(1){
 
+        int opcao;
+
+        printf("\n-> Digite o numero do relatorio que deseja acessar (qualquer outro para sair): ");
+        printf("\n1. Municipio com maior incidencia");
+        printf("\n2. Municipio com menor mortalidade");
+        printf("\n3. Total de confirmados geral");
+        printf("\n4. Total de obitos geral");
+        printf("\n5. Quantidade de municipios sem novos obitos\n");
+
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                relatorio1(municipios, num_mun, n);
+                break;
+            case 2: 
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5: 
+                break;
+            default:
+                exit(1);
+        }
+        
+    }
 
 }
