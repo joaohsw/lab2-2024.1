@@ -102,15 +102,23 @@ void matriz_municipios(Municipio* municipios, int num_mun, int n) {
 
     for (int k = 0; k < num_mun; k++) {
         printf("Preenchendo dados para o municipio %s:\n", municipios[k].nome);
+
         for (int i = 0; i < n; i++) {
 
             printf("Informe os dados para o dia %d:\n", i + 1);
-            printf("Casos confirmados: ");
-            scanf("%d", &(municipios[k].dados[i][0]));  
+
+            do {
+                printf("Casos confirmados: ");
+                scanf("%d", &(municipios[k].dados[i][0]));  
+            } while (municipios[k].dados[i][0] > municipios[k].populacao);
+            
             while (getchar() != '\n');
 
-            printf("Obitos: ");
-            scanf("%d", &(municipios[k].dados[i][1]));  
+            do {
+                printf("Obitos: ");
+                scanf("%d", &(municipios[k].dados[i][1]));  
+            } while (municipios[k].dados[i][0] > municipios[k].populacao);
+            
             while (getchar() != '\n');
         }
     }
