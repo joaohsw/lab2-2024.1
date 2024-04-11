@@ -214,18 +214,36 @@ void relatorio5(Municipio* municipios, int num_mun, int n) {
     int municipios_sem_obitos = 0;
 
     for (int k = 0; k < num_mun; k++) {
-        int obitos_registrados = 0;
-        
-        for (int i = 0; i < n; i++) {
-            obitos_registrados += municipios[k].dados[i][1]; 
-        }
-
-        if (obitos_registrados == 0) {
+        if (municipios[k].dados[n-1][1] == 0) {
             municipios_sem_obitos++;
         }
     }
 
     printf("\nQuantidade de municipios sem novos obitos: %d", municipios_sem_obitos);
+}
+
+void busca(Municipio* municipios, int num_mun, int n) {
+    
+    char busca[100];
+    int contaux = 0;
+
+    printf("Busca de municipios: ");
+    scanf("%s", busca);
+
+    for (int i = 0; i < num_mun; i++) {
+        if (strncmp(busca, municipios[i].nome, strlen(busca)) == 0) {
+            contaux++;
+            printf("\n%s - %d\n", municipios[i].nome, municipios[i].populacao);
+            printf("%-5s %-22s %s\n", "Dia", "Casos contabilizados", "Obitos");
+            for (int k = 0; k < n; k++) {
+                printf("%-5d %-22d %d\n", k + 1, municipios[i].dados[k][0], municipios[i].dados[k][1]);
+            }
+        }
+    }
+
+    if (contaux == 0) {
+        printf("Nenhum municipio encontrado.\n");
+    }
 }
 
 
@@ -258,7 +276,8 @@ int main(){
         printf("\n2. Municipio com menor mortalidade");
         printf("\n3. Total de confirmados geral");
         printf("\n4. Total de obitos geral");
-        printf("\n5. Quantidade de municipios sem novos obitos\n");
+        printf("\n5. Quantidade de municipios sem novos obitos");
+        printf("\n6. Busca por municipio\n");
 
         scanf("%d", &opcao);
 
@@ -278,10 +297,12 @@ int main(){
             case 5: 
                 relatorio5(municipios, num_mun, n);
                 break;
+            case 6:
+                busca(municipios, num_mun, n);
+                break;
             default:
                 free(municipios);
                 exit(1);       
-        } 
+        }
     }
-
 }
