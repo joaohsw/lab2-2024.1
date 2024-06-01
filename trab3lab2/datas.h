@@ -8,7 +8,10 @@ struct Date {
 };
 
 int daysBetweenDates(struct Date date1, struct Date date2);
-
 void calcularDiferencaDeDatas();
+int bissexto(int ano);
+int data_valida(int data);
 
-#endif // DATAS_H
+
+
+#endif 

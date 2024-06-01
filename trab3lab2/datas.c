@@ -41,3 +41,29 @@ void calcularDiferencaDeDatas() {
 
     printf("A diferença em dias entre as duas datas é: %d\n", difference);
 }
+
+
+int bissexto(int ano) {
+    return ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0));
+}
+
+int data_valida(int data) {
+
+    int dia, mes, ano;
+    
+    dia = data / 1000000;
+    mes = (data / 10000) % 100;
+    ano = data % 10000;
+
+
+    int dias_por_mes[] = {0, 31, 28 + bissexto(ano), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if (mes < 1 || mes > 12)
+        return 0; 
+
+    if (dia < 1 || dia > dias_por_mes[mes])
+        return 0; 
+
+    return 1; 
+
+}

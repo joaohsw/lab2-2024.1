@@ -10,6 +10,10 @@ l_clientes* l_cria_clientes() {
     return NULL;
 }
 
+l_locacoes* l_cria_locacoes() {
+    return NULL;
+}
+
 l_veiculos* l_insere_veiculo(l_veiculos* l, dados_veiculo i) {
     l_veiculos* novo = (l_veiculos*) malloc(sizeof(l_veiculos));
     if (novo == NULL) {
@@ -23,6 +27,17 @@ l_veiculos* l_insere_veiculo(l_veiculos* l, dados_veiculo i) {
 
 l_clientes* l_insere_cliente(l_clientes* l, dados_cliente i) {
     l_clientes* novo = (l_clientes*) malloc(sizeof(l_clientes));
+    if (novo == NULL) {
+        printf("Erro ao alocar memoria.\n");
+        exit(1);
+    }
+    novo->info = i;
+    novo->prox = l;
+    return novo;
+}
+
+l_locacoes* l_insere_locacao(l_locacoes* l, dados_locacao i) {
+    l_locacoes* novo = (l_locacoes*) malloc(sizeof(l_locacoes));
     if (novo == NULL) {
         printf("Erro ao alocar memoria.\n");
         exit(1);
@@ -63,4 +78,17 @@ void l_imprime_clientes(l_clientes* l){
         printf("Telefone: %d\n", p->info.telefone);
     }
 
+}
+
+void l_impime_locacoes(l_locacoes* l) {
+    l_locacoes* p;
+    for(p = l; p != NULL; p = p->prox) {
+        printf("\n> Locacao\n");
+        printf("Nome: %s\n", p->info.nome);
+        printf("CNH: %d\n", p->info.cnh);
+        printf("Marca/Modelo: %s\n", p->info.marca_modelo);
+        printf("Data de retirada: %d\n", p->info.retirada);
+        printf("Data de devolucao: %d\n", p->info.devolucao);
+        printf("Valor total: %.2f\n", p->info.valor_total);
+    }
 }

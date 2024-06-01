@@ -5,62 +5,83 @@
 #include "lista.h"
 #include "datas.h"
 
-l_clientes* selecionar_cliente(l_clientes** lc) {
-    int cnh_busca;
-    l_imprime_clientes(*lc);
+void limpar_buffer2() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 
-    l_clientes* cliente_selecionado = NULL;
-    int encontrado = 0;
 
-    while (!encontrado) {
-        
-        printf("\n> Informe a CNH do cliente que deseja locar um veiculo: ");
-        scanf("%d", &cnh_busca);
 
-        l_clientes* temp = *lc;
-        while (temp != NULL) {
-            if (temp->info.cnh == cnh_busca) {
-                cliente_selecionado = temp;
-                encontrado = 1;
+void locar_veiculo(l_veiculos* lv, l_clientes* lc, l_locacoes* ll) {
+
+    dados_locacao insercao;
+
+    printf("\n> Locacao de veiculo\n");
+
+    do {
+        printf("\nInforme a CNH do cliente que deseja locar um veiculo: ");
+        scanf("%ld", &insercao.cnh);
+        for(l_clientes* p = lc; p != NULL; p = p->prox){
+            if(p->info.cnh == insercao.cnh){
+                printf("\nCliente encontrado: %s\n", p->info.nome);
+                insercao.cnh = p->info.cnh;
+                strcpy(insercao.nome, p->info.nome);
                 break;
             }
-            temp = temp->prox;
+            if(p->prox == NULL){
+                printf("\nCliente nao encontrado, tente novamente\n");
+                insercao.cnh = 0;
+            }
+        }
+    } while (insercao.cnh == 0);
+
+    do {
+        printf("\nInforme a placa do veiculo que deseja locar: ");
+        scanf("%s", insercao.placa);
+        for(l_veiculos* p = lv; p != NULL; p = p->prox){
+            if(strcmp(p->info.placa, insercao.placa) == 0 && p->info.disponivel == 1){
+                printf("\nVeiculo encontrado: %s %s\n", p->info.marca, p->info.modelo);
+                char aux[100];
+                strcpy(aux, p->info.marca);
+                strcat(aux, " ");
+                strcat(aux, p->info.modelo);
+                strcpy(insercao.marca_modelo, aux);
+                p->info.disponivel = 0;
+                break;
+            }
+            if(p->prox == NULL){
+                printf("\nVeiculo nao encontrado ou nao esta disponivel, tente novamente\n");
+                strcpy(insercao.placa, "");
+            }
+        }
+    } while (strcmp(insercao.placa, "") == 0);
+
+    int teste_data;
+
+    do {
+        
+        printf("\nInforme a data de retirada do veiculo (DDMMAAAA): ");
+        scanf("%d", &insercao.retirada);
+        teste_data = data_valida(insercao.retirada);
+        if(teste_data == 0){
+            printf("\nData invalida, tente novamente\n");
         }
 
-        if (!encontrado) {
-            printf("Cliente nao encontrado. Tente novamente.\n");
-        }
-    }
-
-    return cliente_selecionado;
-}
-
-void locar_veiculo(l_veiculos* lv, l_clientes* lc) {
-
-    printf("\n> Realizar locacao\n");
-
-    l_clientes* cliente = selecionar_cliente(&lc);
-    if (cliente != NULL) {
-        printf("Cliente selecionado: %s\n", cliente->info.nome);
-    } else {
-        printf("Nenhum cliente foi selecionado.\n");
-    }
-
-
-
-
+    } while (teste_data == 0);
 
 
 }
+
 
 void devolver_veiculo() {
+    
+
+
 
 
     
 }
 
 void listar_locacoes() {
-
-
-
+    // Implemente a listagem das locações se necessário
 }

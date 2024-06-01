@@ -67,7 +67,8 @@ void opcao3(l_clientes** lc){
 
 }
 
-void menu_principal(l_veiculos** lv, l_clientes** lc) {
+void menu_principal(l_veiculos** lv, l_clientes** lc, l_locacoes** ll) {
+
     int input;
 
     while (1) {
@@ -98,7 +99,7 @@ void menu_principal(l_veiculos** lv, l_clientes** lc) {
                 l_imprime_clientes(*lc);
                 break;
             case 5:
-                locar_veiculo(*lv, *lc);
+                locar_veiculo(*lv, *lc, *ll);
                 break;
             case 6:
                 break;
