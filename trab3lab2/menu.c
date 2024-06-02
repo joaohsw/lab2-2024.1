@@ -99,11 +99,13 @@ void menu_principal(l_veiculos** lv, l_clientes** lc, l_locacoes** ll) {
                 l_imprime_clientes(*lc);
                 break;
             case 5:
-                locar_veiculo(*lv, *lc, *ll);
+                locar_veiculo(*lv, *lc, ll);
                 break;
             case 6:
+                devolver_veiculo(*lv, *lc, *ll);
                 break;
             case 7:
+                listar_locacoes(*ll);
                 break;
             case 9:
                 break;

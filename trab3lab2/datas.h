@@ -7,11 +7,11 @@ struct Date {
     int year;
 };
 
-int daysBetweenDates(struct Date date1, struct Date date2);
-void calcularDiferencaDeDatas();
+int converter_para_dias(int data);
+int diferenca_de_dias(int data1, int data2);
 int bissexto(int ano);
 int data_valida(int data);
-
+int compara_datas(int data_retirada, int data_devolucao);
 
 
 #endif 

@@ -35,6 +35,8 @@ typedef struct Locacoes {
     int retirada;
     int devolucao;
     float valor_total;
+    float diaria;
+    long int quilometragem;   
 } dados_locacao;
 
 typedef struct l_locacoes {

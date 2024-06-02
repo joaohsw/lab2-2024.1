@@ -12,7 +12,7 @@ void limpar_buffer2() {
 
 
 
-void locar_veiculo(l_veiculos* lv, l_clientes* lc, l_locacoes* ll) {
+void locar_veiculo(l_veiculos* lv, l_clientes* lc, l_locacoes** ll) {
 
     dados_locacao insercao;
 
@@ -47,6 +47,8 @@ void locar_veiculo(l_veiculos* lv, l_clientes* lc, l_locacoes* ll) {
                 strcat(aux, p->info.modelo);
                 strcpy(insercao.marca_modelo, aux);
                 p->info.disponivel = 0;
+                insercao.diaria = p->info.diaria;
+                insercao.quilometragem = p->info.quilometragem;
                 break;
             }
             if(p->prox == NULL){
@@ -69,19 +71,82 @@ void locar_veiculo(l_veiculos* lv, l_clientes* lc, l_locacoes* ll) {
 
     } while (teste_data == 0);
 
+    *ll = l_insere_locacao(*ll, insercao);
 
 }
 
 
-void devolver_veiculo() {
+void devolver_veiculo(l_veiculos* lv, l_clientes* lc, l_locacoes* ll) {
+
+    dados_locacao remocao;
+    int teste_data, teste_data2;
+    int devolucao;
+    int nova_quilometragem;
+    float diaria;
     
+    printf("\n> Devolucao de veiculo\n");
+    printf("\nInforme a placa do veiculo que deseja devolver: ");
+    char placa[50];
+    scanf("%s", placa);
 
+    for(l_locacoes* p = ll; p != NULL; p = p->prox){
+        if(strcmp(p->info.placa, placa) == 0){
+            printf("\nVeiculo encontrado: %s\n", p->info.marca_modelo);
+            printf("\nCliente: %s\n", p->info.nome);
+            printf("\nData de retirada: %d\n", p->info.retirada);
+            do {
+                printf("\nInforme a data de devolucao do veiculo (DDMMAAAA): ");
+                scanf("%d", &devolucao);
+                teste_data = data_valida(devolucao);
+                teste_data2 = compara_datas(p->info.retirada, devolucao);
+                if(teste_data == 0 || teste_data2 == 0){
+                    printf("\nData invalida, tente novamente\n");
+                }
+            } while (teste_data == 0 || teste_data2 == 0);
 
+            p->info.devolucao = devolucao;
+            p->info.valor_total = diferenca_de_dias(p->info.retirada, p->info.devolucao) * p->info.diaria;
 
+            do {
+                printf("\nInforme a nova quilometragem do veiculo: ");
+                scanf("%d", &nova_quilometragem);
+                if(nova_quilometragem < p->info.quilometragem){
+                    printf("\nQuilometragem invalida, tente novamente\n");
+                }
+            } while (nova_quilometragem < p->info.quilometragem);
+            p->info.quilometragem = nova_quilometragem;
+            break;
+        }
+    }
 
-    
+    for(l_veiculos* p = lv; p != NULL; p = p->prox){
+        if(strcmp(p->info.placa, placa) == 0){
+            p->info.disponivel = 1;
+            break;
+        }
+    }
 }
 
-void listar_locacoes() {
-    // Implemente a listagem das locações se necessário
+void listar_locacoes(l_locacoes* ll) {
+
+    for(l_locacoes* p = ll; p != NULL; p = p->prox) {
+        printf("\n> Locacao\n");
+        printf("Nome: %s\n", p->info.nome);
+        printf("CNH: %d\n", p->info.cnh);
+        printf("Marca/Modelo: %s\n", p->info.marca_modelo);
+        printf("Data de retirada: %d\n", p->info.retirada);
+        if(p->info.devolucao != 0){
+            printf("Data de devolucao: %d\n", p->info.devolucao);
+        }
+        else {
+            printf("Data de devolucao: ainda nao devolvido\n");
+        }
+        if(p->info.valor_total != 0){
+            printf("Valor total: %.2f\n", p->info.valor_total);
+        }
+        else {
+            printf("Valor total: ainda nao calculado\n");
+        }
+    }
+
 }
