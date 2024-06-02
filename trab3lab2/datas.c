@@ -3,24 +3,21 @@
 #include "datas.h"
 
 int converter_para_dias(int data) {
+    
     int dia, mes, ano;
     dia = data / 1000000;
     mes = (data / 10000) % 100;
     ano = data % 10000;
 
-    // Número de dias desde o início do ano 0
     int total_dias = ano * 365 + dia;
 
-    // Adicionar os dias dos meses anteriores
     int dias_por_mes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     for (int i = 1; i < mes; i++) {
         total_dias += dias_por_mes[i];
     }
 
-    // Adicionar dias bissextos
     total_dias += ano / 4 - ano / 100 + ano / 400;
 
-    // Ajustar se o ano for bissexto e a data for depois de fevereiro
     if (mes > 2 && bissexto(ano)) {
         total_dias++;
     }
@@ -28,7 +25,6 @@ int converter_para_dias(int data) {
     return total_dias;
 }
 
-// Função para calcular a diferença de dias entre duas datas
 int diferenca_de_dias(int data1, int data2) {
     int dias1 = converter_para_dias(data1);
     int dias2 = converter_para_dias(data2);

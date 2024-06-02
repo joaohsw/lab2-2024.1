@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "lista.h"
 #include "locacoes.h"
+#include "relatorios.h"
 
 void limpar_buffer() {
     int c;
@@ -67,6 +68,46 @@ void opcao3(l_clientes** lc){
 
 }
 
+void menu_relatorios(l_veiculos* lv, l_clientes* lc, l_locacoes* ll) {
+
+    int input;
+
+    while (1) {
+        printf("\n> Relatorios <");
+        printf("\n  1. R1");
+        printf("\n  2. R2");
+        printf("\n  3. R3");
+        printf("\n  4. R4");
+        printf("\n  5. R5");
+        printf("\n  0. voltar\n");
+
+        scanf("%d", &input);
+
+        switch (input) {
+            case 1:
+                relatorio1(lv, lc, ll);
+                break;
+            case 2:
+                relatorio2(lv, lc, ll);
+                break;
+            case 3:
+                relatorio3(lv, lc, ll);
+                break;
+            case 4:
+                relatorio4(lv, lc, ll);
+                break;
+            case 5:
+                relatorio5(lv, lc, ll);
+                break;
+            case 0:
+                return;
+            default:
+                printf("\nOpcao invalida\n");
+                break;
+        }
+    }
+}
+
 void menu_principal(l_veiculos** lv, l_clientes** lc, l_locacoes** ll) {
 
     int input;
@@ -108,6 +149,7 @@ void menu_principal(l_veiculos** lv, l_clientes** lc, l_locacoes** ll) {
                 listar_locacoes(*ll);
                 break;
             case 9:
+                menu_relatorios(*lv, *lc, *ll);
                 break;
             case 0:
                 exit(0);
