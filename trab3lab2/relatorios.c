@@ -54,9 +54,9 @@ void relatorio2(l_veiculos* lv, l_clientes* lc, l_locacoes* ll){
     }
 }
 
-void relatorio3(l_veiculos* lv, l_clientes* lc, l_locacoes* ll){
-
+void relatorio3(l_veiculos* lv, l_clientes* lc, l_locacoes* ll) {
     int mes, ano;
+    float faturamento_total = 0.0;
 
     printf("\n> Relatorio 3\n");
     printf("\nInforme um mes para consultar o faturamento (MM): ");
@@ -64,9 +64,37 @@ void relatorio3(l_veiculos* lv, l_clientes* lc, l_locacoes* ll){
     printf("\nInforme um ano para consultar o faturamento (AAAA): ");
     scanf("%d", &ano);
 
-    // falta fazer
+    for (l_locacoes* p = ll; p != NULL; p = p->prox) {
+        int dia_retirada, mes_retirada, ano_retirada, dia_devolucao, mes_devolucao, ano_devolucao;
 
+        dia_retirada = p->info.retirada / 1000000;
+        mes_retirada = (p->info.retirada / 10000) % 100;
+        ano_retirada = p->info.retirada % 10000;
 
+        dia_devolucao = p->info.devolucao / 1000000;
+        mes_devolucao = (p->info.devolucao / 10000) % 100;
+        ano_devolucao = p->info.devolucao % 10000;
+
+        int total_dias_locacao = diferenca_de_dias(p->info.retirada, p->info.devolucao);
+        float valor_diario = p->info.valor_total / total_dias_locacao;
+
+        if (ano_retirada == ano && mes_retirada == mes) {
+            int dias_restantes_mes_retirada = dias_no_mes(mes_retirada, ano_retirada) - dia_retirada + 1;
+            faturamento_total += dias_restantes_mes_retirada * valor_diario;
+        }
+
+        if (ano_devolucao == ano && mes_devolucao == mes) {
+            int dias_devolucao_mes = dia_devolucao;
+            faturamento_total += dias_devolucao_mes * valor_diario;
+        }
+
+        if (ano_retirada == ano && ano_devolucao == ano && mes_retirada < mes && mes_devolucao > mes) {
+            int dias_mes = dias_no_mes(mes, ano);
+            faturamento_total += dias_mes * valor_diario;
+        }
+    }
+
+    printf("\nFaturamento total no mes %02d/%04d: %.2f\n", mes, ano, faturamento_total);
 }
 
 void relatorio4(l_veiculos* lv, l_clientes* lc, l_locacoes* ll){

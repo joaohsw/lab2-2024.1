@@ -152,6 +152,9 @@ void menu_principal(l_veiculos** lv, l_clientes** lc, l_locacoes** ll) {
                 menu_relatorios(*lv, *lc, *ll);
                 break;
             case 0:
+                l_libera_veiculos(*lv);
+                l_libera_clientes(*lc);
+                l_libera_locacoes(*ll);
                 exit(0);
             default:
                 printf("\nOpcao invalida\n");

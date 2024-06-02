@@ -25,6 +25,8 @@ int converter_para_dias(int data) {
     return total_dias;
 }
 
+
+
 int diferenca_de_dias(int data1, int data2) {
     int dias1 = converter_para_dias(data1);
     int dias2 = converter_para_dias(data2);
@@ -83,4 +85,12 @@ int compara_datas(int data_retirada, int data_devolucao) {
     }
 
     return 0;
+}
+
+int dias_no_mes(int mes, int ano) {
+    int dias_por_mes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (mes == 2 && bissexto(ano)) {
+        return 29;
+    }
+    return dias_por_mes[mes];
 }

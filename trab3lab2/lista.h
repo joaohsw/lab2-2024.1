@@ -53,5 +53,8 @@ l_locacoes* l_insere_locacao(l_locacoes* l, dados_locacao i);
 void l_imprime_veiculos(l_veiculos* l);  
 void l_imprime_clientes(l_clientes* l);
 void l_imprime_locacoes(l_locacoes* l);
+void l_libera_veiculos(l_veiculos* l);
+void l_libera_clientes(l_clientes* l);
+void l_libera_locacoes(l_locacoes* l);
 
 #endif

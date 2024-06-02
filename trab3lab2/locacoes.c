@@ -122,6 +122,7 @@ void devolver_veiculo(l_veiculos* lv, l_clientes* lc, l_locacoes* ll) {
     for(l_veiculos* p = lv; p != NULL; p = p->prox){
         if(strcmp(p->info.placa, placa) == 0){
             p->info.disponivel = 1;
+            p->info.quilometragem = nova_quilometragem;
             break;
         }
     }

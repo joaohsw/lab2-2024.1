@@ -80,7 +80,7 @@ void l_imprime_clientes(l_clientes* l){
 
 }
 
-void l_impime_locacoes(l_locacoes* l) {
+void l_imprime_locacoes(l_locacoes* l) {
     l_locacoes* p;
     for(p = l; p != NULL; p = p->prox) {
         printf("\n> Locacao\n");
@@ -92,3 +92,31 @@ void l_impime_locacoes(l_locacoes* l) {
         printf("Valor total: %.2f\n", p->info.valor_total);
     }
 }
+
+void l_libera_veiculos(l_veiculos* l) {
+    l_veiculos* p = l;
+    while (p != NULL) {
+        l_veiculos* t = p->prox;
+        free(p);
+        p = t;
+    }
+}
+
+void l_libera_clientes(l_clientes* l) {
+    l_clientes* p = l;
+    while (p != NULL) {
+        l_clientes* t = p->prox;
+        free(p);
+        p = t;
+    }
+}
+
+void l_libera_locacoes(l_locacoes* l) {
+    l_locacoes* p = l;
+    while (p != NULL) {
+        l_locacoes* t = p->prox;
+        free(p);
+        p = t;
+    }
+}
+
