@@ -53,3 +53,12 @@ void libera_fila(fila *f) {
         free(temp);
     }
 }
+
+int tamanho_fila(fila *f) {
+    int tamanho = 0;
+    while (f != NULL) {
+        tamanho++;
+        f = f->prox;
+    }
+    return tamanho;
+}

@@ -11,5 +11,6 @@ void insere_fila(fila **f, int ticket);
 int remove_fila(fila **f);
 int fila_vazia(fila *f);
 void libera_fila(fila *f);
+int tamanho_fila(fila *f);
 
 #endif // FILA_H
