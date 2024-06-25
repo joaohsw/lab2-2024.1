@@ -9,6 +9,7 @@ void ticket_normal(fila **fila_normal) {
     printf("Digite o ticket: ");
     scanf("%d", &ticket);
     insere_fila(fila_normal, ticket);
+    printf("Ticket normal inserido\n");
 
 }
 
@@ -18,6 +19,7 @@ void ticket_prioritario(fila **fila_prioritaria) {
     printf("Digite o ticket: ");
     scanf("%d", &ticket);
     insere_fila(fila_prioritaria, ticket);
+    printf("Ticket prioritario inserido\n");
 
 }
 
@@ -28,8 +30,10 @@ void fusao_filas(fila **fila_normal, fila **fila_prioritaria, fila **fila_geral)
     }
     
     while (!fila_vazia(*fila_normal) && tamanho_fila(*fila_geral) < 10) {
-        insere_fila(fila_geral, remove_fila(*fila_normal));
+        insere_fila(fila_geral, remove_fila(fila_normal));
     }
+
+    printf("Filas fundidas\n");
 }
 
 void bandejas(pilha **pilha) {
@@ -38,6 +42,7 @@ void bandejas(pilha **pilha) {
     for (i = 0; i < 20; i++) {
         insere_pilha(pilha, i);
     }
+    printf("20 bandejas repostas\n");
 
 }
 
@@ -48,6 +53,7 @@ void retirada_bandeja(pilha **pilha) {
     } else {
         printf("Pilha vazia\n");
     }
+    printf("Bandeja retirada\n");
 
 }
 
@@ -58,6 +64,7 @@ void retirada_aluno(fila **fila_geral) {
     } else {
         printf("Fila vazia\n");
     }
+    printf("Aluno retirado\n");
 
 }
 
@@ -103,9 +110,9 @@ void menu_principal(fila **fila_normal, fila **fila_prioritaria, fila **fila_ger
         printf("\n  3. Fusao das duas filas em uma fila unica para ingresso no restaurante");
         printf("\n  4. Colocacao de bandejas pelo funcionario do restaurante");
         printf("\n  5. Retirada de bandeja pelo aluno da fila unica");
-        printf("\n  6. Retirada de aluno da fila única apos ter se servido no buffet");
+        printf("\n  6. Retirada de aluno da fila unica apos ter se servido no buffet");
         printf("\n  7. Impressao das 3 filas (normal, com prioridade e unica) e da pilha");
-        printf("\n  0. voltar\n");
+        printf("\n  0. Sair\n");
 
         scanf("%d", &input);
 
@@ -129,6 +136,7 @@ void menu_principal(fila **fila_normal, fila **fila_prioritaria, fila **fila_ger
             retirada_aluno(fila_geral);
             break;
         case 7:
+            impressao(*fila_normal, *fila_prioritaria, *fila_geral, *pilha);
             break;
         case 0:
             exit(0);
