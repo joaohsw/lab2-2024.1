@@ -34,17 +34,18 @@ void fusao_filas(fila **fila_normal, fila **fila_prioritaria, fila **fila_geral)
     }
 
     printf("Filas fundidas\n");
+
 }
 
 void bandejas(pilha **pilha) {
+    int proximo_numero = proxima_bandeja(*pilha);  // Obtém o próximo número da bandeja
 
-    int i;
-    for (i = 0; i < 20; i++) {
-        insere_pilha(pilha, i);
+    for (int i = 0; i < 20; i++) {
+        insere_pilha(pilha, proximo_numero++);
     }
     printf("20 bandejas repostas\n");
-
 }
+
 
 void retirada_bandeja(pilha **pilha) {
 
@@ -95,8 +96,6 @@ void impressao(fila *fila_normal, fila *fila_prioritaria, fila *fila_geral, pilh
     }
 
 }
-
-
 
 void menu_principal(fila **fila_normal, fila **fila_prioritaria, fila **fila_geral, pilha **pilha){
 
