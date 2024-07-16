@@ -99,7 +99,6 @@ void liberar_arvore(Curso* raiz) {
     }
 }
 
-// Funções para alunos
 Aluno* criar_aluno(int matricula, const char* nome) {
     Aluno* novo_aluno = (Aluno*)malloc(sizeof(Aluno));
     if (!novo_aluno) {
